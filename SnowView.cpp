@@ -22,6 +22,7 @@
 #undef B_TRANSLATION_CONTEXT
 #define B_TRANSLATION_CONTEXT "BSnow"
 
+#define DESKTOP_WINDOW 0L /* 0 used to be Twitcher, is Desktop now */
 
 SnowView::SnowView()
 	:
@@ -308,7 +309,7 @@ void SnowView::Pulse()
 	BMessage msg(B_GET_PROPERTY), reply;
 	msg.AddSpecifier("Frame");
 	msg.AddSpecifier("View", "BSnow");
-	msg.AddSpecifier("Window", 1); /* 0 is Twitcher */
+	msg.AddSpecifier("Window", DESKTOP_WINDOW);
 	if (msgr.SendMessage(&msg, &reply) == B_OK && reply.what == B_REPLY) {
 		//reply.PrintToStream();
 		Invalidate(Bounds());
@@ -510,8 +511,13 @@ void SnowView::MouseUp(BPoint where)
 	BMessage msg(B_DELETE_PROPERTY), reply;
 	msg.AddSpecifier("Replicant", "BSnow");
 	msg.AddSpecifier("Shelf");
-	msg.AddSpecifier("View", "PoseView");
-	msg.AddSpecifier("Window", 1); /* 0 is Tracker Status */
+	// hrev48734 broke this
+	//msg.AddSpecifier("View", "PoseView");
+	// this is wrong according to the BeBook
+	msg.AddSpecifier("View", "BPoseView");
+	msg.AddSpecifier("Window", DESKTOP_WINDOW);
+	fprintf(stderr, "removing replicant: %s\n", strerror(msgr.SendMessage(&msg, &reply)));
+	reply.PrintToStream();
 	if ((msgr.SendMessage(&msg, &reply) == B_OK) && 
 				(reply.what == B_NO_REPLY || reply.what == B_REPLY)) {
 		//reply.PrintToStream();
