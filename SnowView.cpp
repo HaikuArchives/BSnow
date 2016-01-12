@@ -516,8 +516,6 @@ void SnowView::MouseUp(BPoint where)
 	// this is wrong according to the BeBook
 	msg.AddSpecifier("View", "BPoseView");
 	msg.AddSpecifier("Window", DESKTOP_WINDOW);
-	fprintf(stderr, "removing replicant: %s\n", strerror(msgr.SendMessage(&msg, &reply)));
-	reply.PrintToStream();
 	if ((msgr.SendMessage(&msg, &reply) == B_OK) && 
 				(reply.what == B_NO_REPLY || reply.what == B_REPLY)) {
 		//reply.PrintToStream();
