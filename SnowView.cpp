@@ -22,7 +22,7 @@
 #undef B_TRANSLATION_CONTEXT
 #define B_TRANSLATION_CONTEXT "BSnow"
 
-#define DESKTOP_WINDOW 0L /* 0 used to be Twitcher, is Desktop now */
+#define DESKTOP_WINDOW ((int32)0) /* 0 used to be Twitcher, is Desktop now */
 
 SnowView::SnowView()
 	:
