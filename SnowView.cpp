@@ -511,10 +511,7 @@ void SnowView::MouseUp(BPoint where)
 	BMessage msg(B_DELETE_PROPERTY), reply;
 	msg.AddSpecifier("Replicant", "BSnow");
 	msg.AddSpecifier("Shelf");
-	// hrev48734 broke this
-	//msg.AddSpecifier("View", "PoseView");
-	// this is wrong according to the BeBook
-	msg.AddSpecifier("View", "BPoseView");
+	msg.AddSpecifier("View", "PoseView");
 	msg.AddSpecifier("Window", DESKTOP_WINDOW);
 	if ((msgr.SendMessage(&msg, &reply) == B_OK) && 
 				(reply.what == B_NO_REPLY || reply.what == B_REPLY)) {
